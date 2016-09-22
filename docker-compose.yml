@@ -1,0 +1,14 @@
+version: '2'
+services:
+  koken:
+    container_name: koken
+    image: maxrozendaal/koken:php7.0
+    restart: always
+    hostname: koken
+    volumes:
+      - /data/koken/www:/usr/share/nginx/www
+      - /data/koken/mysql:/var/lib/mysql
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - 80:8080
+      - 443:443
