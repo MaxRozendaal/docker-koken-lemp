@@ -2,7 +2,7 @@ version: '2'
 services:
   koken:
     container_name: koken
-    image: maxrozendaal/koken:php7.0
+    image: maxrozendaal/koken:php7.1
     restart: always
     hostname: koken
     volumes:
