@@ -13,9 +13,9 @@ RUN \
 	add-apt-repository ppa:ondrej/php && \
 	add-apt-repository -y ppa:ondrej/nginx-mainline && \
 	add-apt-repository -y ppa:rwky/graphicsmagick && \
-	apt-get update && \
-	apt-get -y upgrade && \
-	apt-get -y install nginx mariadb-server mariadb-client php7.1-fpm php7.1-mysqli php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick pwgen wget unzip openssl
+	apt update && \
+	apt -y upgrade && \
+	apt -y install nginx mariadb-server mariadb-client php7.1-fpm php7.1-mysqli php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick pwgen wget unzip openssl
 
 # Configuration
 RUN \
