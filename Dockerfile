@@ -1,6 +1,4 @@
 FROM phusion/baseimage:0.11
-MAINTAINER Brad Daily <brad@koken.me>
-
 ENV HOME /root
 
 # Install required packages
