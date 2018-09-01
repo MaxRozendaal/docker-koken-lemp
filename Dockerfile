@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:0.11
 MAINTAINER Brad Daily <brad@koken.me>
 
 ENV HOME /root
@@ -9,13 +9,13 @@ RUN \
 	export LANG=C.UTF-8 && \
 	export DEBIAN_FRONTEND=noninteractive && \
 	apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && \
-	add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu xenial main' && \
+	add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main' && \
 	add-apt-repository ppa:ondrej/php && \
 	add-apt-repository -y ppa:ondrej/nginx-mainline && \
 	add-apt-repository -y ppa:rwky/graphicsmagick && \
-	apt update && \
-	apt -y upgrade && \
-	apt -y install nginx mariadb-server mariadb-client php7.1-fpm php7.1-mysqli php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick pwgen wget unzip openssl
+	apt-get update && \
+	apt-get -y upgrade && \
+	apt-get -y install nginx mariadb-server mariadb-client php7.1-fpm php7.1-mysqli php7.1-curl php7.1-intl php7.1-mbstring php7.1-mcrypt graphicsmagick pwgen wget unzip openssl
 
 # Configuration
 RUN \
@@ -27,11 +27,6 @@ RUN \
 	sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 101M/g" /etc/php/7.1/fpm/php.ini && \
 	sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf && \
 	phpenmod mcrypt
-	# sed -i -e "s/;pm.max_requests\s*=\s*500/pm.max_requests = 500/g" /etc/php/5.6/fpm/pool.d/www.conf && \
-	# echo "env[KOKEN_HOST] = 'koken-docker-lemp'" >> /etc/php/5.6/fpm/pool.d/www.conf && \
-	# cp /etc/php/5.6/fpm/pool.d/www.conf /etc/php/5.6/fpm/pool.d/images.conf && \
-	# sed -i -e "s/\[www\]/[images]/" /etc/php/5.6/fpm/pool.d/images.conf && \
-	# sed -i -e "s#listen\s*=\s*/var/run/php5.6-fpm\.sock#listen = /var/run/php5.6-fpm-images.sock#" /etc/php/5.6/fpm/pool.d/images.conf
 
 # nginx site conf
 ADD ./conf/nginx-site.conf /etc/nginx/sites-available/default
